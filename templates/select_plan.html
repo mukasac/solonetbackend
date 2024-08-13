@@ -1,0 +1,23 @@
+<!-- templates/select_plan.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Plan</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Select Your Plan</h1>
+    <div class="plans">
+        {% for plan in plans %}
+            <div class="plan">
+                <h2>{{ plan.name }}</h2>
+                <p>${{ plan.price }} for {{ plan.duration_days }} days</p>
+                <a href="{% url 'create_checkout_session' plan.id %}" class="btn">Choose Plan</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

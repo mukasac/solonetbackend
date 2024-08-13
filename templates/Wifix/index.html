@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Si-WiFi - Island-wide Connectivity</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header class="sticky-header">
+        <div class="logo-container">
+            <img src="{% static 'images/wifi.png' %}" alt="WiFi icon" class="wifi-icon">
+            <div class="logo">Si-WiFi</div>
+        </div>
+        <div class="user-profile">
+            <a href="#" id="profileLink" aria-label="User profile" title="Profile">&#128100;</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Si-WiFi</h1>
+            <a href="#plans" class="cta-button">Connect Now</a>
+        </section>
+
+        <section id="plans" class="plans">
+            <h2>Choose Your Plan</h2>
+            <div class="plan-cards">
+                <div class="plan-card">
+    <h3>Hourly</h3>
+    <p>$5 for 1 hour</p>
+    <a href="#" class="select-plan" data-plan="Hourly" data-price="5">Get Online</a>
+</div>
+                <div class="plan-card">
+                    <h3>Daily</h3>
+                    <p>$10 for 24 hours</p>
+                    <a href="#" class="select-plan" data-plan="Daily" data-price="10" >Get Online</a>
+                </div>
+                <div class="plan-card">
+                    <h3>Weekly</h3>
+                    <p>$30 for 7 days</p>
+                    <a href="#" class="select-plan"  data-plan= "Weekly" dat-price="30"  onclick="selectPlan('Weekly')">Get Online</a>
+                </div>
+                <div class="plan-card">
+                    <h3>Monthly</h3>
+                    <p>$50 for 30 days</p>
+                    <a href="#" class="select-plan" data-plan="Monthly"  data-price="50"  onclick="selectPlan('Monthly')">Get Online</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>Why Choose Si-WiFi</h2>
+            <div class="feature-items">
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Enjoy speeds up to 100Mbps</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏝️</div>
+                    <h3>Island-Wide Coverage</h3>
+                    <p>Stay connected across Solomon Islands</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Connection</h3>
+                    <p>Browse safely with our encrypted network</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Si-WiFi. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#" id="support">Help Center</a>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="form-submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name:</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email:</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password:</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit" class="form-submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>My Profile</h2>
+            <div id="profileInfo">
+                <p><strong>Name:</strong> <span id="profileName"></span></p>
+                <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+                <p><strong>Current Plan:</strong> <span id="profilePlan"></span></p>
+            </div>
+            <h3>Payment Methods</h3>
+            <div id="paymentMethods">
+                <!-- Payment methods will be populated here -->
+            </div>
+            <button id="addPaymentMethod" class="form-submit">Add Payment Method</button>
+            <button id="logout" class="form-submit">Logout</button>
+        </div>
+    </div>
+    
+    <!-- Add Payment Method Modal -->
+<div id="addPaymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Payment Method</h2>
+        <form id="addPaymentForm">
+            <div class="form-group">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" required>
+            </div>
+            <button type="submit" class="form-submit">Add Payment Method</button>
+        </form>
+    </div>
+</div>
+    
+    <!-- Plan Confirmation Modal -->
+<div id="planConfirmModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Confirm Your Plan</h2>
+        <p>You have selected the <span id="selectedPlan"></span> plan.</p>
+        <p>Price: $<span id="selectedPrice"></span></p>
+        <button id="confirmPlan" class="form-submit">Confirm and Pay</button>
+    </div>
+</div>
+
+    <!-- Payment Form (hidden by default) -->
+    <form action="{% url 'charge' %}" method="post" id="payment-form" style="display: none;">
+        {% csrf_token %}
+        <input type="hidden" id="plan-input" name="plan" value="">
+        <div class="form-row">
+            <label for="card-element">
+                Credit or debit card
+            </label>
+            <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <!-- Used to display form errors. -->
+            <div id="card-errors" role="alert"></div>
+        </div>
+        <button type="submit" class="form-submit">Submit Payment</button>
+    </form>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
